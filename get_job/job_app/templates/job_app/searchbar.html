@@ -1,0 +1,32 @@
+{% extends 'job_app/base.html' %}
+
+{% load static %}
+{% block css_add %}
+<link rel="stylesheet" href="{% static 'job_app/index.css' %}">
+{% endblock %}
+
+{% block content %}
+  <h2>Search results</h2>
+<hr>
+{% if jobs %}
+  <div class="row">
+    {% for i in jobs %}
+    <div class="col-lg-4">
+        <div class="card mb-4 box-element product">
+            <img class="card-img-top" src="{{i.image.url}}" alt="{{i.company_name}} Image" style="max-width: 10%; height: 100;">
+            <div class="card-body">
+                <class="card-title"><strong>{{i.company_name|truncatechars_html:50}} - {{i.work_position|truncatechars_html:50}}</strong></>
+                <p class="card-text">{{i.description|truncatechars_html:43}}</p>
+                <hr>
+                <button type="button" value="{{i.id}}" id="add-cart" class="btn btn-outline-secondary add-btn update-cart">Save</button>
+                <a href="{% url 'about' i.id %}" class="btn btn-outline-success">View</a>
+                <h4 style="display: inline-block; float: right;"><strong>Salary: ${{i.salary}}</strong></h4>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<h3>No results for your profession</h3>
+{% endif %}
+{% endblock %}
