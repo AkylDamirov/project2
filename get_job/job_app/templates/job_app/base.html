@@ -12,34 +12,13 @@
         body{
              background-color: #fafafa;
         }
-
     </style>
-    <script type="text/javascript">
-        var user = '{{request.user}}'
-
-        function getToken(name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = jQuery.trim(cookies[i]);
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
-var csrftoken = getToken('csrftoken');
-    </script>
 </head>
 <body>
 <nav class="py-2 bg-body-tertiary border-bottom">
     <div class="container d-flex flex-wrap justify-content-between align-items-center">
         <ul class="nav">
-            <a href="{% url 'home' %}"><img src="logo5.png" class="hello"></a>
+            <a href="{% url 'home' %}"><img src="{% static 'logo7.png' %}" class="hello"></a>
             <b><li class="nav-item"><a href="{% url 'home' %}" style='color:#000000' class="nav-link link-body-emphasis px-2 active" aria-current="page">Home</a></li></b>
             <b><li class="nav-item"><a href="{% url 'cart' %}" style='color:#000000' class="nav-link link-body-emphasis px-2">Saved</a></li></b>
             <b><li class="nav-item"><a href="#" style='color:#000000' class="nav-link link-body-emphasis px-2">Community</a></li></b>
@@ -50,7 +29,9 @@ var csrftoken = getToken('csrftoken');
         <ul class="nav ms-auto">
             {% if user.is_authenticated %}
                 <div class="user-info">
-    <span class="username btn btn-light">{{ user.username }}</span> |
+                    <a href="{% url 'profile' %}">
+                        <span class="username btn btn-outline-dark">{{ user.username }}</span>
+                    </a>|
     <a href="{% url 'logout' %}" class="logout-link btn btn-dark">Log Out</a>
                 </div>
             {% else %}

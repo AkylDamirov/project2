@@ -25,6 +25,7 @@ class JobsModel(models.Model):
     salary = models.IntegerField()
     date = models.DateTimeField(auto_now_add=True)
     work_position = models.CharField(max_length=40)
+    creator = models.ForeignKey(User, on_delete=models.CASCADE)
     # creator = models.ForeignKey(User, on_delete=models.CASCADE)
     # , default = User.objects.get(username='admin')
 

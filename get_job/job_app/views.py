@@ -9,7 +9,7 @@ import json
 # , Order, OrderItem
 def index(request):
     jobs = JobsModel.objects.all()
-    return render(request, 'job_app/index.html',{'jobs':jobs})
+    return render(request, 'job_app/index.html',{'jobs':jobs[::-1]})
 
 def register(request):
     if request.method == 'POST':
@@ -23,17 +23,18 @@ def register(request):
     return render(request, 'registration/register.html', {'form':form})
 
 class Vacancy(CreateView):
-    def dispatch(self, request, *args, **kwargs):
-        if not self.request.user.is_authenticated:
-            return redirect('login')  # Replace 'login' with the URL of your login page
-        return super().dispatch(request, *args, **kwargs)
     model = JobsModel
     form_class = AddVacancy
     template_name = 'job_app/AddVacancy.html'
     success_url = '/'
 
+    def dispatch(self, request, *args, **kwargs):
+        if not self.request.user.is_authenticated:
+            return redirect('login')  # Replace 'login' with the URL of your login page
+        return super().dispatch(request, *args, **kwargs)
     def form_valid(self, form):
-        form.save()
+        # form.instance.creator = self.request.user
+        form.instance.creator = self.request.user
         return super().form_valid(form)
 
 class about(DetailView):
@@ -59,7 +60,7 @@ def searchBar(request):
         query = request.GET.get('query')
         if query:
             jobs = JobsModel.objects.filter(work_position__contains=query)
-            return render(request, 'job_app/searchbar.html', {'jobs':jobs})
+            return render(request, 'job_app/searchbar.html', {'jobs':jobs[::-1]})
         else:
             print('no info')
             return request(request, 'job_app/searchbar.html', {})
@@ -111,7 +112,7 @@ def cart(request):
     user = request.user
     if user.is_authenticated:
         jobs = Cart.objects.filter(user=user)
-        context = {'jobs':jobs}
+        context = {'jobs':jobs[::-1]}
         return render(request, 'job_app/saved.html', context)
     else:
         return redirect('login')
@@ -131,6 +132,19 @@ def cart_delete(request, id):
     cart.delete()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
+def profile(request):
+    user = request.user
+    if user.is_authenticated:
+        jobs = JobsModel.objects.filter(creator=user)
+        context = {'jobs': jobs[::-1]}
+        return render(request, 'job_app/profile.html', context)
+    else:
+        return redirect('login')
+    # profile = JobsModel.objects.get(id=id)
+    # return render(request, 'job_app/profile.html', {'jobs':profile})
 
 
-
+def profile_delete(request, id):
+    cart = JobsModel.objects.get(id=id)
+    cart.delete()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
