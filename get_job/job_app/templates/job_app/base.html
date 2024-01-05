@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-  <title>Get a Job</title>
+  <title>IT Vacancies</title>
     <link rel="stylesheet" href="{% static 'job_app/base.css' %}">
   {% block css_add %} {% endblock %}
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -22,7 +22,6 @@
             <b><li class="nav-item"><a href="{% url 'home' %}" style='color:#000000' class="nav-link link-body-emphasis px-2 active" aria-current="page">Home</a></li></b>
             <b><li class="nav-item"><a href="{% url 'cart' %}" style='color:#000000' class="nav-link link-body-emphasis px-2">Saved</a></li></b>
             <b><li class="nav-item"><a href="#" style='color:#000000' class="nav-link link-body-emphasis px-2">Community</a></li></b>
-            <b><li class="nav-item"><a href="#" style='color:#000000' class="nav-link link-body-emphasis px-2">FAQs</a></li></b>
             <b><li class="nav-item"><a href="{% url 'about2' %}" style='color:#000000' class="nav-link link-body-emphasis px-2">About</a></li></b>
 
         </ul>
@@ -31,7 +30,7 @@
                 <div class="user-info">
                     <a href="{% url 'profile' %}">
                         <span class="username btn btn-outline-dark">{{ user.username }}</span>
-                    </a>|
+                    </a>
     <a href="{% url 'logout' %}" class="logout-link btn btn-dark">Log Out</a>
                 </div>
             {% else %}

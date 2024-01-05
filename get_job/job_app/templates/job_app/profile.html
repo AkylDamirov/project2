@@ -8,6 +8,7 @@
 {% block content %}
 <h2>Your created Vacancies</h2>
 <hr>
+{% if jobs %}
 <div class="row">
     {% for i in jobs %}
     <div class="col-lg-4">
@@ -28,4 +29,7 @@
     </div>
     {% endfor %}
 </div>
+{% else %}
+<h3>You have not created any Vacancies</h3>
+{% endif %}
 {% endblock %}

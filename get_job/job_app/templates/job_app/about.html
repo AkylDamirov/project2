@@ -57,10 +57,14 @@
         <br>
         <b><h3 class="h2">Company name - {{ job.company_name }}</h3></b>
         <b><p class="p">Position: {{ job.work_position }}</p></b>
-        <p class="p">{{ job.description }}</p>
+        <b>Description</b>
+        <div class="text">
+            <p class="p">{{ job.description }}</p>
+        </div>
+
         <b><p class="p">Salary: ${{ job.salary }}</p></b>
         <br>
-        This Vacancy was created by: {{job.creator}}
+<!--        This Vacancy was created by: {{job.creator}}-->
         <p class="posted-info p">Posted on: {{ job.date }}</p>
     </div>
     <br>
