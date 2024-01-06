@@ -1,16 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Job Form</title>
+{% extends 'job_app/base.html' %}
+{% load static %}
+{% block css_add %}
+<link rel="stylesheet" href="{% static 'job_app/index.css' %}">
+
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
 
         .job-form-container {
             max-width: 600px;
@@ -18,6 +11,7 @@
             padding: 20px;
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
         }
 
         .job-form-container label {
@@ -45,7 +39,7 @@
         .job-form-container button:hover {
             background-color: #45a049;
         }
-        a {
+        .a {
             text-decoration: none;
             color: #007bff;
             font-weight: bold;
@@ -55,13 +49,13 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        a:hover {
+        .a:hover {
             background-color: #0056b3;
             color: #ffffff;
         }
     </style>
-</head>
-<body>
+{% endblock %}
+{% block content %}
 
 <div class="job-form-container">
     <h2>Job Form</h2>
@@ -89,8 +83,6 @@
     </form>
     <br>
     <br>
-    <a href="{% url 'home' %}">To Home</a>
+    <a class='a' href="{% url 'home' %}">To Home</a>
 </div>
-
-</body>
-</html>
+{% endblock %}

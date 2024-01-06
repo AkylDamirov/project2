@@ -54,15 +54,18 @@
 {% block content %}
     <div class="card">
         <img class="card-img-top" src="{{ job.image.url }}"  style='max-width: 6%; height: 100' alt="{{ job.company_name }} Image">
-        <br>
-        <b><h3 class="h2">Company name - {{ job.company_name }}</h3></b>
-        <b><p class="p">Position: {{ job.work_position }}</p></b>
-        <b>Description</b>
+
+        <h6>Company</h6><b><h5 class="h2">{{ job.company_name }}</h5></b>
+        <b><h6>Position</h6>
+            <h4 class="p">{{ job.work_position }}</h4>
+        </b>
+        <b><h6>Description</h6></b>
         <div class="text">
-            <p class="p">{{ job.description }}</p>
+            <p class="p">{{ job.description|linebreaks }}</p>
         </div>
 
-        <b><p class="p">Salary: ${{ job.salary }}</p></b>
+        <h6 class="p">Salary</h6>
+            <b>${{ job.salary }}</b>
         <br>
 <!--        This Vacancy was created by: {{job.creator}}-->
         <p class="posted-info p">Posted on: {{ job.date }}</p>
