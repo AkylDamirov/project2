@@ -1,0 +1,101 @@
+{% extends 'job_app/base.html' %}
+{% load static %}
+{% block css_add %}
+<link rel="stylesheet" href="{% static 'job_app/index.css' %}">
+
+    <style>
+
+        .job-form-container {
+            max-width: auto px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+        }
+
+        .job-form-container label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .job-form-container input,
+        .job-form-container textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+        }
+
+        .job-form-container button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .job-form-container button:hover {
+            background-color: #45a049;
+        }
+        .a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+            padding: 10px 15px;
+            border-radius: 5px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .a:hover {
+            background-color: #0056b3;
+            color: #ffffff;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+
+<div class="job-form-container">
+    <h2>Job Form</h2>
+    <form method="post" enctype="multipart/form-data" action="{% url 'add_vacancy' %}">
+        {% csrf_token %}
+
+        <label for="{{ form.company_name.id_for_label }}"><b>Company Name:</b></label>
+        {{ form.company_name }}
+
+        <label for="{{ form.image.id_for_label }}"><b>Image:</b></label>
+        {{ form.image }}
+
+        <label for="{{ form.description.id_for_label }}"><b>Description:</b></label>
+        {{ form.description }}
+
+        <label for="{{ form.work_position.id_for_label }}"><b>Work Position:</b></label>
+        {{ form.work_position }}
+
+        <label for="{{ form.salary.id_for_label }}"><b>Salary:</b></label>
+        {{ form.salary }}
+        {% if form.errors %}
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                {% endfor %}
+        {% endif %}
+
+        <label for="{{ form.phone_number.id_for_label }}"><b>phone number:</b></label>
+        {{ form.phone_number }}
+
+        <label for="{{ form.email.id_for_label }}"><b>Email:</b></label>
+        {{ form.email }}
+
+        <br>
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+    <br>
+    <br>
+    <a class='a' href="{% url 'home' %}">To Home</a>
+</div>
+{% endblock %}

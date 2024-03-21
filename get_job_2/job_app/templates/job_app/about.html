@@ -1,0 +1,84 @@
+{% extends 'job_app/base.html' %}
+{% load static %}
+{% block css_add %}
+<link rel="stylesheet" href="{% static 'job_app/index.css' %}">
+
+
+
+
+    <!-- Add some basic styling for better appearance -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+
+        .h2 {
+            color: black;
+        }
+
+        .p {
+            line-height: 1.6;
+            color: #343a40;
+        }
+
+        .card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .posted-info {
+            color: #6c757d;
+        }
+
+        .a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+            padding: 10px 15px;
+            border-radius: 5px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .a:hover {
+            background-color: #0056b3;
+            color: #ffffff;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="card">
+        <img class="card-img-top" src="{{ job.image.url }}"  style='max-width: 6%; height: 100' alt="{{ job.company_name }} Image">
+        <br>
+        <h6>Company</h6><b><h4>{{ job.company_name }}</h4></b>
+        <b><h6>Position</h6>
+            <h4 class="p">{{ job.work_position }}</h4>
+        </b>
+        <h6 class="p">Salary</h6>
+            <b><h4>${{ job.salary }}</h4></b>
+        <br>
+        <b><h6>Description</h6></b>
+        <hr>
+        <div class="text">
+            <p class="h2">{{ job.description|linebreaks }}</p>
+            <hr>
+        </div>
+
+        <h6 class="p">Phone number</h6>
+            <b><h5>{{ job.phone_number }}</h5></b>
+
+        <h6 class="p">Email</h6>
+            <b><h5>{{ job.email }}</h5></b>
+
+        <br>
+<!--        This Vacancy was created by: {{job.creator}}-->
+        <p class="posted-info p">Posted on: {{ job.date }}</p>
+    </div>
+    <br>
+<a class="a" href="{% url 'home' %}">To Home</a>
+{% endblock %}
