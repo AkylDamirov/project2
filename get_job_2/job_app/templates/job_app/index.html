@@ -47,7 +47,7 @@
 
                 <h6>Position:</h6> <strong>{{i.work_position|truncatechars_html:50}}</strong>
 
-                <h6>Country:</h6> <strong>Unites States</strong>
+                <h6>Country:</h6> <strong>{{i.country|truncatechars_html:50}}</strong>
 <!--                <p class="card-text">{{i.description|truncatechars_html:43}}</p>-->
                 <hr>
                 {% if user.is_authenticated %}

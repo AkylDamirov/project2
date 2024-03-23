@@ -74,15 +74,11 @@
         <label for="{{ form.work_position.id_for_label }}"><b>Work Position:</b></label>
         {{ form.work_position }}
 
+        <label for="{{ form.country.id_for_label }}"><b>Country:</b></label>
+        {{ form.country }}
+
         <label for="{{ form.salary.id_for_label }}"><b>Salary:</b></label>
         {{ form.salary }}
-        {% if form.errors %}
-                {% for field in form %}
-                    {% for error in field.errors %}
-                        <p>{{ error }}</p>
-                    {% endfor %}
-                {% endfor %}
-        {% endif %}
 
         <label for="{{ form.phone_number.id_for_label }}"><b>phone number:</b></label>
         {{ form.phone_number }}
@@ -92,6 +88,15 @@
 
         <br>
         <br>
+        {% if form.errors %}
+            <ul>
+        {% for field in form %}
+            {% for error in field.errors %}
+                <li>{{ field.label }}: {{ error }}</li>
+            {% endfor %}
+        {% endfor %}
+            </ul>
+        {% endif %}
         <button type="submit">Submit</button>
     </form>
     <br>
