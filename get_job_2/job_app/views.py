@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, HttpResponse,HttpResponseRedirect, get_object_or_404
 from .models import JobsModel, Cart
 from .forms  import NewUserFrom, AddVacancy
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.views.generic import CreateView, DetailView, UpdateView
 from django.http import JsonResponse, HttpResponseNotFound
 import json
@@ -161,3 +161,7 @@ class UpdateVacancy(UpdateView):
 
     def form_valid(self, form):
         return super().form_valid(form)
+
+def loguot_view(request):
+    logout(request)
+    return redirect('home')

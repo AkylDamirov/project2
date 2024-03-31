@@ -37,17 +37,22 @@
 <!--  </div>-->
 <!--<b><h4 style="color:black">Recent Vacancies</h4></b>-->
 <!--<hr>-->
+<h3>Recent Vacancies</h3>
+<hr>
 <div class="row">
     {% for i in jobs %}
     <div class="col-lg-4">
         <div class="card mb-4 box-element product">
             <img class="card-img-top" src="{{i.image.url}}" alt="{{i.company_name}} Image" style="max-width: 10%; height: 100;">
             <div class="card-body">
-                <h6>Company:</h6> <strong>{{i.company_name|truncatechars_html:50}}</strong>
 
-                <h6>Position:</h6> <strong>{{i.work_position|truncatechars_html:50}}</strong>
-
-                <h6>Country:</h6> <strong>{{i.country|truncatechars_html:50}}</strong>
+                Company:
+                <strong>{{i.company_name|truncatechars_html:30}}</strong>
+                <br>
+                Position: <strong>{{i.work_position|truncatechars_html:38}}</strong>
+                <br>
+                Country: <strong>{{i.country|truncatechars_html:50}}</strong>
+                <br>
 <!--                <p class="card-text">{{i.description|truncatechars_html:43}}</p>-->
                 <hr>
                 {% if user.is_authenticated %}

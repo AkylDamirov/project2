@@ -9,7 +9,7 @@
 
 
 {% block content %}
-<h2>Your created Vacancies</h2>
+<h3>Your created Vacancies</h3>
 <hr>
 {% if jobs %}
 <div class="row">
@@ -18,12 +18,12 @@
         <div class="card mb-4 box-element product">
             <img class="card-img-top" src="{{i.image.url}}" alt="{{i.company_name}} Image" style="max-width: 10%; height: 100;">
             <div class="card-body">
-                <h6>Company:</h6> <strong>{{i.company_name|truncatechars_html:50}}</strong>
-
-                <h6>Position:</h6> <strong>{{i.work_position|truncatechars_html:50}}</strong>
-
-                <h6>Country:</h6> <strong>{{i.country|truncatechars_html:50}}</strong>
-<!--                <p class="card-text">{{i.description|truncatechars_html:43}}</p>-->
+                Company: <strong>{{i.company_name|truncatechars_html:50}}</strong>
+                <br>
+                Position: <strong>{{i.work_position|truncatechars_html:50}}</strong>
+                <br>
+                Country: <strong>{{i.country|truncatechars_html:50}}</strong>
+                <br>
                 <hr>
                 <a href="{% url 'change' i.id %}">
                <button data-product='{{i.id}}' class="btn btn-outline-secondary add-btn update-cart">Edit</button>

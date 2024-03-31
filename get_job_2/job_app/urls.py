@@ -15,5 +15,6 @@ urlpatterns = [
     path('delete/<int:id>', views.cart_delete, name='delete'),
     path('delete2/<int:id>', views.profile_delete, name='delete2'),
     path('profile', views.profile, name='profile'),
-    path('change/<int:pk>/', views.UpdateVacancy.as_view(), name='change')
+    path('change/<int:pk>/', views.UpdateVacancy.as_view(), name='change'),
+    path('logout', views.loguot_view, name='logout2')
     ]
