@@ -3,6 +3,7 @@ from sqlalchemy import create_engine, Column, Integer, String, Float
 import sqlalchemy
 from sqlalchemy.orm import sessionmaker, Session
 from pydantic import BaseModel
+import googlemaps
 
 app = FastAPI()
 
@@ -10,6 +11,8 @@ DATABASE_URL = 'sqlite:///./database.db'
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = sqlalchemy.orm.declarative_base()
+
+gmaps = googlemaps.Client(key='AIzaSyCb4hUzElFNSfR-c5k3i5zSzs9egoXB8r8')
 
 class City(Base):
     __tablename__ = "cities"
@@ -29,8 +32,8 @@ def get_db():
 
 class CityAdd(BaseModel):
     name: str
-    latitude: float
-    longitude: float
+    # latitude: float
+    # longitude: float
 
 class CityResponse(BaseModel):
     id: int
@@ -42,13 +45,30 @@ class CityResponse(BaseModel):
 def index():
     return {'info':'go to localhost/docs'}
 
-@app.post('/cities/', response_model=CityResponse)
-async def create_city(city:CityAdd, db:Session = Depends(get_db)):
-    db_city = City(**city.model_dump())
+# @app.post('/cities/', response_model=CityResponse)
+# async def create_city(city:CityAdd, db:Session = Depends(get_db)):
+#     db_city = City(**city.model_dump())
+#     db.add(db_city)
+#     db.commit()
+#     db.refresh(db_city)
+#     return db_city
+@app.post('/cities/')
+async def create_city(city_data: CityAdd):
+    result = gmaps.geocode(city_data.name)
+    if not result:
+        raise HTTPException(status_code=404, detail='City not found')
+
+    location = result[0]['geometry']['location']
+    latitude = location['lat']
+    longitude = location['lng']
+
+    db = SessionLocal()
+    db_city = City(name=city_data.name, latitude=latitude, longitude=longitude)
     db.add(db_city)
     db.commit()
     db.refresh(db_city)
-    return db_city
+    db.close()
+    return {'city': city_data.name, 'latitude':latitude, 'longitude':longitude}
 
 @app.get('/cities/{city_id}', response_model=CityResponse)
 async def get_city(city_id:int, db:Session=Depends(get_db)):
@@ -57,7 +77,7 @@ async def get_city(city_id:int, db:Session=Depends(get_db)):
         raise HTTPException(status_code=404, detail='Item not found')
     return db_city
 
-@app.get('/cities2/', response_model=CityResponse)
+@app.get('/cities/', response_model=CityResponse)
 async def get_city_by_name(name:str, db:Session=Depends(get_db)):
     db_city = db.query(City).filter(City.name==name).first()
     if db_city is None:
@@ -86,6 +106,7 @@ async def delete_city(city_id:int, db: Session=Depends(get_db)):
     db.delete(db_city)
     db.commit()
     return {'message':'City deleted successfully'}
+
 
 if __name__=='__main__':
     import uvicorn
