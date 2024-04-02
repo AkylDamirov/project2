@@ -4,6 +4,7 @@ import sqlalchemy
 from sqlalchemy.orm import sessionmaker, Session
 from pydantic import BaseModel
 import googlemaps
+from geopy.distance import geodesic
 
 app = FastAPI()
 
@@ -40,6 +41,11 @@ class CityResponse(BaseModel):
     name: str
     latitude: float
     longitude: float
+    distance: float
+
+class NearestCity(BaseModel):
+    latitude: float
+    longitude: float
 
 @app.get('/')
 def index():
@@ -74,7 +80,7 @@ async def create_city(city_data: CityAdd):
 async def get_city(city_id:int, db:Session=Depends(get_db)):
     db_city = db.query(City).filter(City.id==city_id).first()
     if db_city is None:
-        raise HTTPException(status_code=404, detail='Item not found')
+        raise HTTPException(status_code=404, detail='City not found')
     return db_city
 
 @app.get('/cities/', response_model=CityResponse)
@@ -107,10 +113,39 @@ async def delete_city(city_id:int, db: Session=Depends(get_db)):
     db.commit()
     return {'message':'City deleted successfully'}
 
+@app.post('/nearest_cities/', response_model=list[CityResponse])
+async def get_nearest_cities(nearest_city:NearestCity, db:Session = Depends(get_db)):
+    cities = db.query(City).all()
+
+    city_distances = []
+    for city in cities:
+        distance = geodesic((nearest_city.latitude, nearest_city.longitude), (city.latitude, city.longitude)).kilometers
+        city_distances.append({'city':city, 'distance':distance})
+
+    #sort
+    sorted_cities = sorted(city_distances, key=lambda x: x['distance'])
+    nearest_cities = sorted_cities[:2]
+
+    response_data = []
+    for city_data in nearest_cities:
+        city = city_data['city']
+        response_data.append({
+            'id':city.id,
+            'name':city.name,
+            'latitude':city.latitude,
+            'longitude': city.longitude,
+            'distance': city_data['distance']
+        })
+    return response_data
 
 if __name__=='__main__':
     import uvicorn
     uvicorn.run(app,host="127.0.0.1", port=8000)
+
+
+
+
+
 
 
 
