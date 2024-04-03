@@ -26,6 +26,7 @@ class JobsModel(models.Model):
     company_name = models.CharField(max_length=50)
     description = models.TextField(max_length=3000)
     country = models.CharField(max_length=50)
+    city = models.CharField(max_length=50)
     salary = models.IntegerField(validators=[MaxValueValidator(999999)])
     date = models.DateTimeField(auto_now_add=True)
     work_position = models.CharField(max_length=40)
