@@ -21,7 +21,7 @@ class NewUserFrom(UserCreationForm):
 class AddVacancy(forms.ModelForm):
     class Meta:
         model = JobsModel
-        fields = ('image', 'company_name','work_position', 'country','description', 'salary', 'phone_number', 'email')
+        fields = ('image', 'company_name','work_position', 'country','city','description', 'salary', 'phone_number', 'email')
 
     def valid_salary(self):
         salary_field = self.cleaned_data.get('salary')
