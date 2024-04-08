@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 
 urlpatterns = [
@@ -16,5 +16,6 @@ urlpatterns = [
     path('delete2/<int:id>', views.profile_delete, name='delete2'),
     path('profile', views.profile, name='profile'),
     path('change/<int:pk>/', views.UpdateVacancy.as_view(), name='change'),
+    path('accounts/', include('django.contrib.auth.urls')),
     path('logout', views.loguot_view, name='logout2')
     ]
