@@ -30,7 +30,7 @@ class Vacancy(CreateView):
 
     def dispatch(self, request, *args, **kwargs):
         if not self.request.user.is_authenticated:
-            return redirect('login')  # Replace 'login' with the URL of your login page
+            return redirect('login')
         return super().dispatch(request, *args, **kwargs)
     def form_valid(self, form):
         # form.instance.creator = self.request.user
@@ -165,3 +165,10 @@ class UpdateVacancy(UpdateView):
 def loguot_view(request):
     logout(request)
     return redirect('home')
+
+
+
+
+
+
+
