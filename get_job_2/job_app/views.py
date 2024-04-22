@@ -46,14 +46,7 @@ class about(DetailView):
 def about2(request):
     return HttpResponse('This app was created by Akylbek')
 
-# def cart_add(request):
-#     cart = Cart(request)
-#     if request.POST.get('action') =='post':
-#         product_id = int(request.POST.get('product_id'))
-#         product = get_object_or_404(JobsModel, id=product_id)
-#         cart.add(product=product)
-#         response = JsonResponse({'Product Name: ': product.company_name})
-#         return response
+
 
 def searchBar(request):
     if request.method == 'GET':
