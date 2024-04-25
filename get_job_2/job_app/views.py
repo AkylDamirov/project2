@@ -133,8 +133,6 @@ def profile(request):
         return render(request, 'job_app/profile.html', context)
     else:
         return redirect('login')
-    # profile = JobsModel.objects.get(id=id)
-    # return render(request, 'job_app/profile.html', {'jobs':profile})
 
 def profile_delete(request, id=None): #id=None
     # if id is None:
