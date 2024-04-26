@@ -135,14 +135,11 @@ def profile(request):
         return redirect('login')
 
 def profile_delete(request, id=None): #id=None
-    # if id is None:
-    #     return HttpResponseNotFound()
-    # try:
+
     cart = JobsModel.objects.get(id=id)
     cart.delete()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-    # except JobsModel.DoesNotExist:
-    #     return HttpResponseNotFound()
+
 
 class UpdateVacancy(UpdateView):
     model = JobsModel
