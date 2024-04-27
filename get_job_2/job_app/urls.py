@@ -8,7 +8,6 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('about/<int:pk>/', views.about.as_view(), name='about'),
     path('about2', views.about2, name='about2'),
-    # path('add/', views.cart_add, name='cart_add'),
     path('search/', views.searchBar, name='search'),
     # path('update_item/', views.updateItem, name='update_item'),
     path('cart', views.cart, name='cart'),
@@ -25,6 +24,3 @@ urlpatterns = [
     path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(template_name='registration/password_reset_done2.html'), name='password_reset_complete'),
     ]
 
-# path('reset/<uidb64>/<token>/',
-#      auth_views.PasswordResetConfirmView.as_view(template_name='registration/password_reset_confirm2.html'),
-#      name='password_reset_confirm'),
