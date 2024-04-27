@@ -3,10 +3,10 @@ from .models import JobsModel, Cart
 from .forms  import NewUserFrom, AddVacancy
 from django.contrib.auth import login, logout
 from django.views.generic import CreateView, DetailView, UpdateView
-from django.http import JsonResponse, HttpResponseNotFound
-import json
+
+
 # Create your views here.
-# , Order, OrderItem
+
 def index(request):
     jobs = JobsModel.objects.all()
     return render(request, 'job_app/index.html',{'jobs':jobs[::-1]})
